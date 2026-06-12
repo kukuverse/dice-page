@@ -1,0 +1,284 @@
+{
+  "shared": {
+    "headerLogo": {
+      "label": "Brand - Header logo",
+      "type": "image",
+      "value": "/uploads/1781165539656-4b11875aa406ee3b.png"
+    }
+  },
+  "story": {
+    "heroTitle": {
+      "label": "Story - Hero title",
+      "type": "html",
+      "value": ""
+    },
+    "heroKicker": {
+      "label": "Story - Hero kicker",
+      "type": "text",
+      "value": "KUKUVERSE Vault X1 Display Box Is Coming Soon",
+      "style": {
+        "fontStyle": "italic"
+      }
+    },
+    "heroDescription": {
+      "label": "Story - Hero description",
+      "type": "html",
+      "value": "KUKUVERSE is a premium collectibles brand inspired by games, anime, and fantasy worlds.<br>We create pieces that bring the stories, characters, and universes fans love into reality."
+    },
+    "heroImage": {
+      "label": "Story - Hero image URL",
+      "type": "image",
+      "value": "/uploads/1781166356601-a2829ae06eb00e44.jpg"
+    },
+    "beginningTitle": {
+      "label": "Story - Beginning title",
+      "type": "text",
+      "value": "Everyone carries a world of their own."
+    },
+    "joinTitle": {
+      "label": "Story - Join title",
+      "type": "text",
+      "value": "Join the KUKUVERSE"
+    },
+    "joinDescription": {
+      "label": "Story - Join description",
+      "type": "text",
+      "value": "Be the first to discover new collectibles, Kickstarter launches, exclusive drops, and behind-the-scenes stories."
+    },
+    "createItems": {
+      "label": "Story - What We Create items",
+      "type": "collection",
+      "items": [
+        {
+          "id": "dice",
+          "navLabel": "Dice",
+          "title": "Lonely Worlds Series",
+          "description": "Every collection tells a lonely story. Every story belongs to a world.",
+          "image": "/uploads/1781167960665-1e8f4a4abc5a3690.png"
+        },
+        {
+          "id": "display-pieces",
+          "navLabel": "Display Box",
+          "title": "Vault X1",
+          "titleStyle": {
+            "color": "#ffffff"
+          },
+          "description": "A futuristic display box designed to showcase figures, mechs, and collectibles with immersive lighting and premium presentation. Turn every shelf into a world worth exploring.",
+          "descriptionStyle": {
+            "color": "#ffffff"
+          },
+          "image": "/uploads/1781166562065-1282e80be7c10bbe.jpg"
+        },
+        {
+          "id": "accessories",
+          "navLabel": "Accessories",
+          "title": "Codex S1",
+          "titleStyle": {
+            "color": "#ffffff"
+          },
+          "description": "Designed to store, protect, and showcase your favorite dice set, Codex S1 combines the charm of a fantasy tome with the practicality of a premium collector's case.",
+          "descriptionStyle": {
+            "color": "#ffffff"
+          },
+          "image": "/uploads/1781168267622-9ca23c4e0e011b83.jpg"
+        }
+      ]
+    }
+  },
+  "index": {
+    "heroKicker": {
+      "label": "Products - Hero kicker",
+      "type": "text",
+      "value": "Limited Release"
+    },
+    "heroTitle": {
+      "label": "Products - Hero title",
+      "type": "html",
+      "value": "Vault X1"
+    },
+    "heroDescription": {
+      "label": "Products - Hero description",
+      "type": "text",
+      "value": "Vault X1 transforms every figure into a centerpiece. \nInspired by futuristic hangars and mech deployment bays, it combines immersive lighting, customizable display space, and a premium showcase design to bring your favorite characters, mechs, and collectibles to life."
+    },
+    "heroGallery": {
+      "label": "Products - Hero gallery",
+      "type": "collection",
+      "items": [
+        {
+          "id": "vault-x1-1",
+          "image": "/uploads/1781168568215-82ca652cb7e54667.jpg",
+          "alt": "Vault X1 hero image 1"
+        },
+        {
+          "id": "item-1781168954149-35f5ba",
+          "image": "/uploads/1781168965501-163b7b8849252c41.jpg",
+          "alt": "Product image 2"
+        },
+        {
+          "id": "item-1781168968797-ad29eb",
+          "image": "/uploads/1781168973202-2ba34318625a70e3.jpg",
+          "alt": "Product image 3"
+        }
+      ]
+    },
+    "armoryKicker": {
+      "label": "Products - Armory kicker",
+      "type": "text",
+      "value": "The DICE"
+    },
+    "armoryTitle": {
+      "label": "Products - Armory title",
+      "type": "text",
+      "value": "Lonely Worlds Series Dice"
+    },
+    "armoryActionLabel": {
+      "label": "Products - Armory action label",
+      "type": "text",
+      "value": "Explore All"
+    },
+    "armoryItems": {
+      "label": "Products - Armory items",
+      "type": "collection",
+      "items": [
+        {
+          "id": "obsidian-core-d20",
+          "image": "/uploads/1781171007131-a1b5b4355612b195.png",
+          "title": "House of Elliådey",
+          "subtitle": "",
+          "alt": "House of Elliådey"
+        },
+        {
+          "id": "titanium-hex-set",
+          "image": "/uploads/1781171465545-06a92b392994b772.png",
+          "title": "Tree of Ténéré",
+          "subtitle": "",
+          "alt": "Tree of Ténéré"
+        },
+        {
+          "id": "singularity-die",
+          "image": "/uploads/1781171498821-4ae680a705520237.jpg",
+          "title": "Point Nemo",
+          "subtitle": "",
+          "alt": "Point Nemo"
+        },
+        {
+          "id": "item-1781171522507-a65351",
+          "image": "/uploads/1781171550545-fc384b2a5423d7a9.jpg",
+          "title": "Svalbard Seed Vault",
+          "subtitle": "",
+          "alt": "Svalbard Seed Vault"
+        },
+        {
+          "id": "item-1781172232886-212599",
+          "image": "/uploads/1781172260556-15ddc34bbd916a62.jpg",
+          "title": "Voyager 1",
+          "subtitle": "",
+          "alt": "Voyager 1"
+        }
+      ]
+    },
+    "ethosImage": {
+      "label": "Products - Ethos image",
+      "type": "image",
+      "value": "/uploads/1781171607346-417d35ed54300074.jpg"
+    },
+    "ethosKicker": {
+      "label": "Products - Ethos kicker",
+      "type": "text",
+      "value": "Accessories"
+    },
+    "ethosTitle": {
+      "label": "Products - Ethos title",
+      "type": "text",
+      "value": "Codex S1 Dice Book"
+    },
+    "ethosDescriptionOne": {
+      "label": "Products - Ethos paragraph one",
+      "type": "text",
+      "value": "Carry Your Adventure Between the Pages.\nInspired by the spellbooks of legendary mages, Codex S1 is more than a storage case. It safeguards your dice, maps, and treasured artifacts in a beautifully crafted tome designed for every tabletop journey.\nOpen the cover, reveal your tools, and step into your next adventure."
+    },
+    "ethosDescriptionTwo": {
+      "label": "Products - Ethos paragraph two",
+      "type": "text",
+      "value": ""
+    },
+    "ethosMetricOneValue": {
+      "label": "Products - Ethos metric one value",
+      "type": "text",
+      "value": ""
+    },
+    "ethosMetricOneLabel": {
+      "label": "Products - Ethos metric one label",
+      "type": "text",
+      "value": ""
+    },
+    "ethosMetricTwoValue": {
+      "label": "Products - Ethos metric two value",
+      "type": "text",
+      "value": ""
+    },
+    "ethosMetricTwoLabel": {
+      "label": "Products - Ethos metric two label",
+      "type": "text",
+      "value": ""
+    }
+  },
+  "lab": {
+    "heroTitle": {
+      "label": "Lab - Hero title",
+      "type": "html",
+      "value": "Where ideas become <span class=\"gradient-text\">True.</span>"
+    },
+    "heroDescription": {
+      "label": "Lab - Hero description",
+      "type": "text",
+      "value": "The Lab is where imagination becomes tangible.\nFrom the first sketch to the final collectible, every piece begins here—crafted by makers, inspired by stories, and built for fans."
+    },
+    "heroImage": {
+      "label": "Lab - Hero image URL",
+      "type": "image",
+      "value": "/uploads/1781173855982-0c91977e688ec337.jpg"
+    },
+    "teamTitle": {
+      "label": "Lab - Team title",
+      "type": "text",
+      "value": "A small team driven by curiosity and craft."
+    },
+    "teamDescription": {
+      "label": "Lab - Team description",
+      "type": "text",
+      "value": "A small team of designers, makers, storytellers, and collectors. \nDifferent skills, shared passion. \nWe spend our days building the kinds of collectibles we wish existed—pieces that spark imagination, celebrate fandom, and deserve a place in our own collections."
+    },
+    "officeImage": {
+      "label": "Lab - Office image URL",
+      "type": "image",
+      "value": "/uploads/1781174153679-344f3b0399c3e9c3.jpg"
+    },
+    "officeTitle": {
+      "label": "Lab - Office title",
+      "type": "text",
+      "value": "A place to make together."
+    },
+    "officeDescription": {
+      "label": "Lab - Office description",
+      "type": "text",
+      "value": "Our space is part workshop, part design lab, and part collector's den. It's where ideas are sketched, prototypes are tested, and countless iterations bring imaginary worlds closer to reality."
+    },
+    "makerImage": {
+      "label": "Lab - Maker space image URL",
+      "type": "image",
+      "value": "https://lh3.googleusercontent.com/aida-public/AB6AXuD7SL70m4-IBGuJ1QCi_veY1mHYmMu7bpRfm0xWWTLzspIjBuKiKkAIw-Xroyz_A_Tx5c-L5-wJzBC4GE5G32s9DUA666vaJqJBqHLR5df8GX0LfNicHj87D5dMYSOMQj3WZmm4pFM8ckUk7cqdbwF1Z2JV6fjCUHR9ee9xv6YqU1wSYVt8-3H8Bv0oaBTf_edOJ6l3_YAHOzvGkYJtauLugpZILluNEBQsJ46c3KW0C3gd0f7CpkNAH6DZW5JB_dPJu0n-v70_0SwJ"
+    },
+    "makerTitle": {
+      "label": "Lab - Maker space title",
+      "type": "text",
+      "value": "Where we learn by making."
+    },
+    "makerDescription": {
+      "label": "Lab - Maker space description",
+      "type": "text",
+      "value": "We use a shared maker space for 3D printing, CNC work, laser cutting, finishing, and assembly. It lets the team test scale, weight, texture, and movement before committing to production."
+    }
+  }
+}

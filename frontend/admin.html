@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KUKUVERSE Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <section class="login-panel" data-login-panel>
+      <div class="login-card">
+        <div class="admin-kicker">KUKUVERSE CONTROL ROOM</div>
+        <h1>Admin access</h1>
+        <p>Manage community registrations, incoming messages, and editable website content.</p>
+        <form data-login-form>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required>
+          </label>
+          <button type="submit">Enter dashboard</button>
+          <div class="form-message" data-login-message></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard" data-dashboard hidden>
+      <aside class="admin-sidebar">
+        <div>
+          <a class="admin-brand" href="story.html">
+            <span class="admin-brand-logo" aria-hidden="true">
+              <img class="admin-brand-logo-image" data-admin-brand-logo alt="">
+            </span>
+            <span>KUKUVERSE</span>
+          </a>
+          <div class="admin-caption">ADMIN SYSTEM</div>
+        </div>
+        <nav class="admin-nav">
+          <button class="is-active" type="button" data-admin-tab="joins">Registrations</button>
+          <button type="button" data-admin-tab="messages">Messages</button>
+          <button type="button" data-admin-tab="content">Page content</button>
+        </nav>
+        <button class="logout-button" type="button" data-logout>Log out</button>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-header">
+          <div>
+            <div class="admin-kicker">COMMUNITY OPERATIONS</div>
+            <h1 data-section-title>Registrations</h1>
+          </div>
+          <a class="view-site" href="story.html" target="_blank" rel="noreferrer">View website</a>
+        </header>
+
+        <section class="admin-section is-active" data-admin-section="joins">
+          <div class="metric-row">
+            <article class="metric-card">
+              <span>Total registrations</span>
+              <strong data-join-count>0</strong>
+            </article>
+            <article class="metric-card">
+              <span>New registrations</span>
+              <strong data-new-join-count>0</strong>
+            </article>
+          </div>
+          <div class="data-panel campaign-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Crowdfunding notification</h2>
+                <p>Send an email update to every active registered address.</p>
+              </div>
+              <span class="config-badge" data-email-config>Checking email service...</span>
+            </div>
+            <form class="campaign-form" data-campaign-form>
+              <label>
+                Email subject
+                <input type="text" name="subject" placeholder="The KUKUVERSE campaign is live" required>
+              </label>
+              <label>
+                Message
+                <textarea name="message" rows="5" placeholder="Share the campaign link and launch details..." required></textarea>
+              </label>
+              <button class="primary-action" type="submit">Send notification</button>
+              <div class="save-message" data-campaign-message></div>
+            </form>
+          </div>
+          <div class="data-panel">
+            <div class="panel-heading">
+              <h2>Community registrations</h2>
+              <button type="button" data-refresh="joins">Refresh</button>
+            </div>
+            <div class="table-wrap" data-joins-table></div>
+          </div>
+        </section>
+
+        <section class="admin-section" data-admin-section="messages">
+          <div class="metric-row">
+            <article class="metric-card">
+              <span>Total messages</span>
+              <strong data-message-count>0</strong>
+            </article>
+            <article class="metric-card">
+              <span>Unread messages</span>
+              <strong data-new-message-count>0</strong>
+            </article>
+          </div>
+          <div class="data-panel">
+            <div class="panel-heading">
+              <h2>Incoming messages</h2>
+              <button type="button" data-refresh="messages">Refresh</button>
+            </div>
+            <div class="table-wrap" data-messages-table></div>
+          </div>
+        </section>
+
+        <section class="admin-section" data-admin-section="content">
+          <div class="data-panel">
+            <div class="panel-heading">
+              <div>
+                <h2>Website content</h2>
+                <p>Choose a page, review every field, then confirm publishing. Open website pages update automatically.</p>
+              </div>
+            </div>
+            <form class="content-editor" data-content-editor></form>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="admin.js?v=20260611-2"></script>
+</body>
+</html>
