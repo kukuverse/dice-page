@@ -1,3 +1,4 @@
+const CLOUDINARY_API_BASE = "https://api.cloudinary.com/v1_1";
 const MAX_JSON_BODY_BYTES = 1_000_000;
 const MAX_UPLOAD_BODY_BYTES = 12_000_000;
 const MAX_UPLOAD_IMAGE_BYTES = 8_000_000;
@@ -189,16 +190,15 @@ export async function onRequest(context) {
         return json(400, { error: "The image must be smaller than 8 MB." });
       }
 
-      const objectKey = `${Date.now()}-${crypto.randomUUID().replaceAll("-", "")}${extension}`;
-      await env.UPLOADS_BUCKET.put(objectKey, imageBytes, {
-        httpMetadata: {
-          contentType: mimeType
-        }
+      const uploadResult = await uploadToCloudinary(env, {
+        fileName: `${Date.now()}-${crypto.randomUUID().replaceAll("-", "")}${extension}`,
+        imageBytes,
+        mimeType
       });
 
       return json(201, {
         message: "Image uploaded and ready to publish.",
-        url: `/uploads/${objectKey}`,
+        url: uploadResult.secure_url,
         page,
         key,
         itemId,
@@ -565,20 +565,138 @@ async function sanitizeIndexArmoryItems(env, entry, existingEntry) {
 }
 
 async function deleteUploadIfManaged(env, value) {
-  const key = getManagedUploadKey(value);
-  if (!key) {
+  const publicId = getManagedCloudinaryPublicId(env, value);
+  if (!publicId) {
     return;
   }
 
-  await env.UPLOADS_BUCKET.delete(key);
+  const formData = new FormData();
+  formData.set("public_id", publicId);
+  formData.set("invalidate", "true");
+  formData.set("timestamp", String(Math.floor(Date.now() / 1000)));
+  formData.set("signature", await signCloudinaryParams(env, {
+    invalidate: "true",
+    public_id: publicId,
+    timestamp: formData.get("timestamp")
+  }));
+  formData.set("api_key", String(env.CLOUDINARY_API_KEY || ""));
+
+  const response = await fetch(`${CLOUDINARY_API_BASE}/${encodeURIComponent(String(env.CLOUDINARY_CLOUD_NAME || ""))}/image/destroy`, {
+    method: "POST",
+    body: formData
+  });
+
+  if (!response.ok) {
+    console.warn("Cloudinary destroy failed", publicId, response.status);
+  }
 }
 
-function getManagedUploadKey(value) {
+function getManagedCloudinaryPublicId(env, value) {
   const normalized = String(value || "").trim();
-  if (!normalized.startsWith("/uploads/")) {
+  if (!normalized) {
     return "";
   }
-  return normalized.slice("/uploads/".length);
+
+  const cloudName = String(env.CLOUDINARY_CLOUD_NAME || "").trim();
+  const folder = getCloudinaryFolder(env);
+  if (!cloudName || !normalized.startsWith(`https://res.cloudinary.com/${cloudName}/`)) {
+    return "";
+  }
+
+  try {
+    const url = new URL(normalized);
+    const uploadIndex = url.pathname.indexOf("/upload/");
+    if (uploadIndex === -1) {
+      return "";
+    }
+
+    const deliveredPath = url.pathname.slice(uploadIndex + "/upload/".length);
+    const pathParts = deliveredPath.split("/").filter(Boolean);
+    const versionIndex = pathParts.findIndex((segment) => /^v\d+$/.test(segment));
+    if (versionIndex === -1 || versionIndex === pathParts.length - 1) {
+      return "";
+    }
+
+    const publicIdWithExtension = pathParts.slice(versionIndex + 1).join("/");
+    const publicId = publicIdWithExtension.replace(/\.[^.]+$/, "");
+    if (folder && !publicId.startsWith(`${folder}/`)) {
+      return "";
+    }
+    return publicId;
+  } catch {
+    return "";
+  }
+}
+
+async function uploadToCloudinary(env, { fileName, imageBytes, mimeType }) {
+  const cloudName = String(env.CLOUDINARY_CLOUD_NAME || "").trim();
+  const apiKey = String(env.CLOUDINARY_API_KEY || "").trim();
+  const apiSecret = String(env.CLOUDINARY_API_SECRET || "").trim();
+
+  if (!cloudName || !apiKey || !apiSecret) {
+    throw new Error("Cloudinary is not configured. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, and CLOUDINARY_API_SECRET.");
+  }
+
+  const extension = fileName.includes(".") ? fileName.slice(fileName.lastIndexOf(".")) : "";
+  const publicId = fileName.slice(0, fileName.length - extension.length);
+  const formData = new FormData();
+  formData.set("file", new File([imageBytes], fileName, { type: mimeType }));
+  formData.set("public_id", publicId);
+
+  const folder = getCloudinaryFolder(env);
+  if (folder) {
+    formData.set("folder", folder);
+  }
+
+  const response = await fetch(`${CLOUDINARY_API_BASE}/${encodeURIComponent(cloudName)}/image/upload`, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${base64Encode(`${apiKey}:${apiSecret}`)}`
+    },
+    body: formData
+  });
+
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(payload.error?.message || "Cloudinary upload failed.");
+  }
+
+  return payload;
+}
+
+function getCloudinaryFolder(env) {
+  return String(env.CLOUDINARY_UPLOAD_FOLDER || "kukuverse/uploads").trim().replace(/^\/+|\/+$/g, "");
+}
+
+async function signCloudinaryParams(env, params) {
+  const secret = String(env.CLOUDINARY_API_SECRET || "").trim();
+  if (!secret) {
+    throw new Error("Cloudinary API secret is missing.");
+  }
+
+  const toSign = Object.entries(params)
+    .filter(([, value]) => value !== undefined && value !== null && value !== "")
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
+
+  const digest = await crypto.subtle.digest(
+    "SHA-1",
+    new TextEncoder().encode(`${toSign}${secret}`)
+  );
+
+  return [...new Uint8Array(digest)]
+    .map((value) => value.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function base64Encode(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary);
 }
 
 function sanitizeContentStyle(style) {

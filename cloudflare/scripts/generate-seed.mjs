@@ -8,9 +8,13 @@ const contentPath = path.join(projectRoot, "backend", "data", "content.json");
 const joinsPath = path.join(projectRoot, "backend", "data", "joins.json");
 const messagesPath = path.join(projectRoot, "backend", "data", "messages.json");
 const campaignsPath = path.join(projectRoot, "backend", "data", "campaigns.json");
+const cloudinaryMapPath = path.join(projectRoot, "cloudflare", "cloudinary-map.json");
 const outputPath = path.join(projectRoot, "cloudflare", "migrations", "0002_seed_content.sql");
 
-const content = JSON.parse(fs.readFileSync(contentPath, "utf8"));
+const cloudinaryMap = fs.existsSync(cloudinaryMapPath)
+  ? JSON.parse(fs.readFileSync(cloudinaryMapPath, "utf8"))
+  : {};
+const content = rewriteUploadUrls(JSON.parse(fs.readFileSync(contentPath, "utf8")), cloudinaryMap);
 const joins = JSON.parse(fs.readFileSync(joinsPath, "utf8"));
 const messages = JSON.parse(fs.readFileSync(messagesPath, "utf8"));
 const campaigns = JSON.parse(fs.readFileSync(campaignsPath, "utf8"));
@@ -59,3 +63,21 @@ for (const record of campaigns) {
 
 fs.writeFileSync(outputPath, `${statements.join("\n")}\n`, "utf8");
 console.log(`Wrote ${outputPath}`);
+
+function rewriteUploadUrls(value, replacements) {
+  if (Array.isArray(value)) {
+    return value.map((item) => rewriteUploadUrls(item, replacements));
+  }
+
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entryValue]) => [key, rewriteUploadUrls(entryValue, replacements)])
+    );
+  }
+
+  if (typeof value === "string" && value.startsWith("/uploads/")) {
+    return replacements[value] || value;
+  }
+
+  return value;
+}

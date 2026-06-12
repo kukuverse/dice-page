@@ -6,6 +6,7 @@
     "start": "node backend/server.js",
     "start:backend": "node backend/server.js",
     "cf:dev": "npx wrangler pages dev frontend",
-    "cf:seed": "node cloudflare/scripts/generate-seed.mjs"
+    "cf:seed": "node cloudflare/scripts/generate-seed.mjs",
+    "cf:cloudinary-upload": "node cloudflare/scripts/upload-to-cloudinary.mjs"
   }
 }

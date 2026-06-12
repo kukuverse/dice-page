@@ -7,5 +7,6 @@ backend/uploads/*
 !backend/uploads/.gitkeep
 .wrangler/
 .dev.vars
+cloudflare/cloudinary-map.json
 .DS_Store
 Thumbs.db

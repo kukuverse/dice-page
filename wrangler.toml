@@ -8,8 +8,4 @@ RESEND_FROM = "KUKUVERSE <hello@example.com>"
 [[d1_databases]]
 binding = "DB"
 database_name = "kukuverse-production"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
-
-[[r2_buckets]]
-binding = "UPLOADS_BUCKET"
-bucket_name = "kukuverse-uploads"
+database_id = "4819ec15-113f-4244-934e-f6d5fa96d5ec"

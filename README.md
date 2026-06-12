@@ -46,10 +46,12 @@ frontend routes and admin API contract:
 
 - `frontend/`: Cloudflare Pages static output
 - `functions/api/[[path]].js`: Pages Functions API backed by D1
-- `functions/uploads/[[path]].js`: R2-backed image delivery
+- `functions/uploads/[[path]].js`: legacy `/uploads/*` fallback route
 - `cloudflare/migrations/0001_initial.sql`: D1 schema
 - `cloudflare/scripts/generate-seed.mjs`: generates seed SQL from the local
   `backend/data/*.json` files
+- `cloudflare/scripts/upload-to-cloudinary.mjs`: uploads legacy local images
+  to Cloudinary and creates a URL map for the seed script
 - `wrangler.toml`: local/dev binding template
 
 ### 1. Push the repo to GitHub
@@ -62,7 +64,6 @@ From the project root:
 
 ```powershell
 npx wrangler d1 create kukuverse-production
-npx wrangler r2 bucket create kukuverse-uploads
 ```
 
 Copy the returned D1 `database_id` into [wrangler.toml](./wrangler.toml).
@@ -73,9 +74,31 @@ Copy the returned D1 `database_id` into [wrangler.toml](./wrangler.toml).
 npx wrangler d1 execute kukuverse-production --file=cloudflare/migrations/0001_initial.sql
 ```
 
-### 4. Seed the current local data into D1
+### 4. Upload existing local images to Cloudinary
 
-Generate the seed file from the local JSON data:
+Create a free Cloudinary account and collect:
+
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+
+Then upload the local files from `backend/uploads/` and generate a URL map:
+
+```powershell
+$env:CLOUDINARY_CLOUD_NAME="your-cloud-name"
+$env:CLOUDINARY_API_KEY="your-api-key"
+$env:CLOUDINARY_API_SECRET="your-api-secret"
+npm run cf:cloudinary-upload
+```
+
+This writes [cloudinary-map.json](./cloudflare/cloudinary-map.json), which maps
+legacy `/uploads/...` paths to Cloudinary URLs.
+
+### 5. Seed the current local data into D1
+
+Generate the seed file from the local JSON data. If `cloudinary-map.json`
+exists, the seed script automatically replaces `/uploads/...` references with
+their Cloudinary URLs.
 
 ```powershell
 npm run cf:seed
@@ -85,20 +108,6 @@ Then import it:
 
 ```powershell
 npx wrangler d1 execute kukuverse-production --file=cloudflare/migrations/0002_seed_content.sql
-```
-
-### 5. Upload existing local images to R2
-
-The current site content references files under `backend/uploads/`. Upload
-those files to R2 using the same filename so URLs like `/uploads/<file>` keep
-working.
-
-Example PowerShell loop:
-
-```powershell
-Get-ChildItem backend/uploads -File | ForEach-Object {
-  npx wrangler r2 object put "kukuverse-uploads/$($_.Name)" --file="$($_.FullName)"
-}
 ```
 
 ### 6. Create the Cloudflare Pages project
@@ -113,10 +122,13 @@ In Cloudflare Pages:
 Add these bindings/secrets in the Pages project settings:
 
 - D1 binding: `DB` -> your `kukuverse-production` database
-- R2 binding: `UPLOADS_BUCKET` -> your `kukuverse-uploads` bucket
 - Secret: `ADMIN_PASSWORD`
 - Secret: `RESEND_API_KEY`
 - Variable or secret: `RESEND_FROM`
+- Secret: `CLOUDINARY_CLOUD_NAME`
+- Secret: `CLOUDINARY_API_KEY`
+- Secret: `CLOUDINARY_API_SECRET`
+- Variable or secret: `CLOUDINARY_UPLOAD_FOLDER`
 
 ### 7. Custom domain
 
