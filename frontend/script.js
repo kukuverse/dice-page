@@ -82,32 +82,56 @@ let destroyProductGallery = null;
 let destroyArmoryCarousel = null;
 const defaultProductGalleryItems = [
   {
-    id: "hero-1",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAML2zbq6MHZkSTlqQmQzSsQJh8_MdTYPCowYWWbKBIvuuXpsC8LCr0demnw9JON70ZC-huKIPixRm2XzcAl4WHYO6qdZHy93K9Akiu00zEK2CtJdnV3AfpMrDWcxd-aBK-4X5qd_jh4bvLKZ9NTOPbVAH1V6UXs376jEhJqtvW0W7hMsl6UpLtmwIG4YuJg2_9X0s-v89RW5dnJzKRUjsB0gCb_2V4pxZFvkKMbCAcxO3WJWGibB6ekXHApMISbVWOHbt28G44_rq1",
-    alt: "Collector Prism display case"
+    id: "vault-x1-1",
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781246996/kukuverse/uploads/1781168568215-82ca652cb7e54667.jpg",
+    alt: "Vault X1 hero image 1"
+  },
+  {
+    id: "vault-x1-2",
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247039/kukuverse/uploads/1781168965501-163b7b8849252c41.jpg",
+    alt: "Vault X1 hero image 2"
+  },
+  {
+    id: "vault-x1-3",
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247090/kukuverse/uploads/1781168973202-2ba34318625a70e3.jpg",
+    alt: "Vault X1 hero image 3"
   }
 ];
 const defaultArmoryItems = [
   {
     id: "obsidian-core-d20",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBQc5mtLKae9jxtMuBOkwRukqK-yy64Lk76rW06xwpl4OmxDaSeD3PtE7ifG-uMlnRO35VB6wRUWF3ynj7LDA-8a-T9zcEle8RU6QN2d2wiYI8KUJjSCTKUlTJ2wIMPYt9OZUE80hIUucPFJiVlmN-OcxGULnXaphwcJ9KaODY_2k32s52A6UgYgX1-lvQv9i8x1pvV4mOn3Sdo2I3Bl5zeyRFvfypONnHKWTYNeUk4NPDoEk3FBE3yeHMR6_W4IjERnqFIkgLUJvlu",
-    title: "Obsidian Core D20",
-    subtitle: "Tungsten-Grade Steel",
-    alt: "Obsidian Core D20"
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247408/kukuverse/uploads/1781171007131-a1b5b4355612b195.png",
+    title: "House of Elliådey",
+    subtitle: "",
+    alt: "House of Elliådey"
   },
   {
     id: "titanium-hex-set",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjioYg7oSNqlWAQis94rlUUItlTbQim9iNyupqyR25AgORt7gj7YQMr2DsUJbuYokCw_OmU-huElLTkJe1HKuc-d7tueZO9js9TmY8GVxLNy1LSH1SLWeX5GPHNsr4yze5THE7hETraVoVSmeod98BC-s9O9PKCIkCMkb-fnqoTLfG4ilxjIk-2hXsd0uB3Tgq9ayRMFL9ay-iTXReLPGa-G63gFZtcE4KLQpYuO27diVVi1AdDPq2Ldbxi4uMQbL9d0yPESAIz0jU",
-    title: "Titanium Hex Set",
-    subtitle: "Polished Grade 5",
-    alt: "Titanium Hex Set"
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247420/kukuverse/uploads/1781171465545-06a92b392994b772.png",
+    title: "Tree of Ténéré",
+    subtitle: "",
+    alt: "Tree of Ténéré"
   },
   {
     id: "singularity-die",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAYBaNAZ7mWq4R5h1G0pVhmFND9MIaa9XWIc35LGH-sCJXLccYLPvuve7fwt-Bi9xpLILSE9ZsIIFB4giw2lWYbPWPM5tNjlGwPq0CZnujQwLhuU22CRqbyGyBwNJsTHBg04YMjI9b5W32dOlg_9q0phMghiNlx8qSSI3LmDm2OB9WWfr_uCcAN-irnyYv9qg_EAGDdCFR7yyVjABOlb57J1Kgp57NLZAfTU3WYx0osLJPB5nxjE1GHc730mLmcySaVhUEj0XyVpbW2",
-    title: "Singularity Die",
-    subtitle: "Generative Lattice",
-    alt: "Singularity Die"
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247441/kukuverse/uploads/1781171498821-4ae680a705520237.jpg",
+    title: "Point Nemo",
+    subtitle: "",
+    alt: "Point Nemo"
+  },
+  {
+    id: "svalbard-seed-vault",
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247489/kukuverse/uploads/1781171550545-fc384b2a5423d7a9.jpg",
+    title: "Svalbard Seed Vault",
+    subtitle: "",
+    alt: "Svalbard Seed Vault"
+  },
+  {
+    id: "voyager-1",
+    image: "https://res.cloudinary.com/dpohad7sa/image/upload/v1781247521/kukuverse/uploads/1781172260556-15ddc34bbd916a62.jpg",
+    title: "Voyager 1",
+    subtitle: "",
+    alt: "Voyager 1"
   }
 ];
 
@@ -438,8 +462,12 @@ const loadPageContent = () => {
           }
         });
       });
+      document.documentElement.dataset.contentReady = "true";
     })
-    .catch(() => {});
+    .catch((error) => {
+      document.documentElement.dataset.contentReady = "fallback";
+      console.error("Unable to load managed page content.", error);
+    });
 };
 
 if (window.location.protocol !== "file:") {
