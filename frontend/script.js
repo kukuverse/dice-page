@@ -32,7 +32,24 @@ syncHeader();
 window.addEventListener("scroll", syncHeader, { passive: true });
 
 const pageName = (() => {
-  const fileName = window.location.pathname.split("/").pop() || "story.html";
+  const pathName = window.location.pathname.replace(/\/+$/, "") || "/";
+  const pathAliasMap = {
+    "/": "story",
+    "/story": "story",
+    "/story.html": "story",
+    "/products": "index",
+    "/products.html": "index",
+    "/index": "index",
+    "/index.html": "index",
+    "/lab": "lab",
+    "/lab.html": "lab"
+  };
+
+  if (pathAliasMap[pathName]) {
+    return pathAliasMap[pathName];
+  }
+
+  const fileName = pathName.split("/").pop() || "story.html";
   return fileName.replace(".html", "") || "story";
 })();
 

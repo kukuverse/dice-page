@@ -1,2 +1,4 @@
 / /story.html 302
-/product.html /index.html 301
+/story /story.html 200
+/lab /lab.html 200
+/product.html /products 301
